@@ -13,8 +13,8 @@
             <div class="mb-3">
                 <label>Tipo</label>
                 <select name="tipo" class="form-control" id="tipo">
-                    <option value="receita" >Receita</option>
-                    <option value="despesa" >Despesa</option>
+                    <option value="receita">Receita</option>
+                    <option value="despesa">Despesa</option>
                 </select>
             </div>
         
@@ -25,7 +25,18 @@
 
             <div class="mb-3">
                 <label>Categoria</label>
-                <input type="text"   name="categoria" id="categoria" class="form-control">
+                <select name="categoria" class="form-control" id="categoria">
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Moradia">Moradia</option>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Roupas">Roupas</option>
+                    <option value="Assinaturas">Assinaturas</option>
+                    <option value="Outros">Outros</option>
+
+                </select>
             </div>
 
             <div class="mb-3">
@@ -38,7 +49,7 @@
                 <input type="text"   name="descricao" id="descricao" class="form-control">
             </div>
             
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="button" class="btn btn-primary" onclick="adicionarTransacao()">Enviar</button>
         </form>
     </div>
     <div class="container mt-4">
@@ -46,7 +57,18 @@
         <form>
             <div class="mb-3">
                 <label>Categoria</label>
-                <input type="text" name="categoria" id="categoria_limite" class="form-control">
+                <select name="categoria_limite" class="form-control" id="categoria_limite">
+                    <option value="Alimentacão">Alimentação</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Moradia">Moradia</option>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Roupas">Roupas</option>
+                    <option value="Assinaturas">Assinaturas</option>
+                    <option value="Outros">Outros</option>
+
+                </select>
             </div>
 
             <div class="mb-3">
@@ -59,9 +81,27 @@
                 <input type="text" name="mes" id="mes" class="form-control">
             </div>
 
-            <button type="submit" class="btn btn-primary">Enviar</button>
-
+            <button type="button" class="btn btn-primary" onclick="adicionarLimite()">Enviar</button>
+            <button type="button" class="btn btn-primary" onclick="listarTransacoes()">Ver transações</button>
+            
         </form>
+        <div>
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Categoria</th>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                </tr>
+        </thead>
+            <tbody id="tabela-transacoes">
+        </tbody>
+    </table>
+</div>
     </div>
+    <script src="{{  url_for('static', filename='jonson.js')}}"></script>
 </body>
 </html>
