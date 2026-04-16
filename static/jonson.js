@@ -7,7 +7,7 @@ function adicionarTransacao() {
 
     fetch('/adicionar', {
         method: 'POST',
-        headers: {'Content-type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             tipo: tipo,
             valor: valor,
@@ -25,9 +25,9 @@ function adicionarLimite() {
     let valor_max = document.getElementById('valor_max').value
     let mes = document.getElementById('mes').value
 
-    fetch('/adicionar', {
+    fetch('/limites', {
         method: 'POST',
-        headers: {'Content-type': 'application/json' },
+        headers: {'Content-Type': 'application/json' },
         body: JSON.stringify({
             categoria: categoria,
             valor_max: valor_max,
@@ -54,6 +54,37 @@ function listarTransacoes() {
             <td>${t[5]}</td>
         </tr>`
 
+        })
+    })
+}
+function verificarAlertas() {
+    fetch('/alertas')
+    .then(response => response.json())
+    .then(avisos => {
+        let divAvisos = document.getElementById('alertas')
+        divAvisos.innerHTML = ''
+        if (avisos.length === 0) {
+            divAvisos.innerHTML = '<p>Nenhum alerta!</p>' } 
+        else {
+            avisos.forEach(aviso => {
+            divAvisos.innerHTML += `<p>${aviso}</p>`
+    })
+}
+    })
+}
+function listarLimites() {
+    fetch('/mostrarlimites')
+    .then(response => response.json())
+    .then(vlimites => {
+        let tabela_limites = document.getElementById('tabela-limites')
+        tabela_limites.innerHTML = ''
+        vlimites.forEach(verlimites => {
+            tabela_limites.innerHTML += `<tr>
+            <td>${verlimites[0]}</td>
+            <td>${verlimites[1]}</td>
+            <td>${verlimites[2]}</td>
+            <td>${verlimites[3]}</td>
+        </tr>`
         })
     })
 }

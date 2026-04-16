@@ -66,10 +66,44 @@ def listar_limites():
     conexao = conectar()
     cursor = conexao.cursor()
 
-    cursor.execute('SELECT * FROM limites')
+    cursor.execute('SELECT id, categoria, mes, valor_max FROM limites')
     lista_limites = cursor.fetchall()
     conexao.close()
-     
+
     return jsonify(lista_limites)
+
+@app.route('/alertas', methods=['GET'])
+def buscar_limites():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute('SELECT categoria, valor_max, mes FROM limites')
+    limites = cursor.fetchall()
+    avisos = []
+
+    for limite in limites:
+        categoria = limite[0]
+        valor_max = limite[1]
+        mes = limite[2]
+
+        cursor.execute("""
+        SELECT SUM(valor) FROM transacoes 
+        WHERE categoria = ? AND tipo = 'despesa' AND strftime('%Y-%m', data) = ?
+        """, (categoria, mes))
+
+
+        total_gasto = cursor.fetchone()[0] or 0
+
+        porcentagem = total_gasto / valor_max * 100
+
+        if porcentagem >= 80:
+            avisos.append(f'Categoria {categoria} passou de 80%!')
+        
+        
+
+    return jsonify(avisos)
+            
+
+     
 if __name__ == '__main__':
     app.run(debug=True)

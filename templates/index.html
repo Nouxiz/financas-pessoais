@@ -58,7 +58,7 @@
             <div class="mb-3">
                 <label>Categoria</label>
                 <select name="categoria_limite" class="form-control" id="categoria_limite">
-                    <option value="Alimentacão">Alimentação</option>
+                    <option value="Alimentação">Alimentação</option>
                     <option value="Transporte">Transporte</option>
                     <option value="Moradia">Moradia</option>
                     <option value="Saúde">Saúde</option>
@@ -83,9 +83,12 @@
 
             <button type="button" class="btn btn-primary" onclick="adicionarLimite()">Enviar</button>
             <button type="button" class="btn btn-primary" onclick="listarTransacoes()">Ver transações</button>
+            <button type="button" class="btn btn-primary" onclick="listarLimites()">Ver Limites</button>
+            <button type="button" class="btn btn-warning" onclick="verificarAlertas()">Verificar alertas</button>
             
         </form>
-        <div>
+        
+    <div>
             <table class="table mt-4">
                 <thead>
                     <tr>
@@ -101,7 +104,22 @@
         </tbody>
     </table>
 </div>
+    <div>
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Categoria</th>
+                        <th>Mês</th>
+                        <th>Valor Máximo</th>
+                </tr>
+        </thead>
+            <tbody id="tabela-limites">
+        </tbody>
+    </table>
     </div>
+
+    <div id="alertas"></div>
     <script src="{{  url_for('static', filename='jonson.js')}}"></script>
 </body>
 </html>
